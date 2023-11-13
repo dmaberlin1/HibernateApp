@@ -1,5 +1,6 @@
 package com.dmadev.model;
 
+import com.dmadev.model.Gender;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,8 +14,9 @@ public class Animal {
     @Column(name = "name")
     private String name;
 
-    @Column(name="pet_owner")
-    private String petOwner;
+    @ManyToOne
+    @JoinColumn(name = "person_id",referencedColumnName = "id")
+    private Person petOwner;
 
     @Column(name="age")
     private int age;
@@ -29,6 +31,13 @@ public class Animal {
     @Column(name="wild")
     private boolean wild;
 
+    public Person getPetOwner() {
+        return petOwner;
+    }
+
+    public void setPetOwner(Person petOwner) {
+        this.petOwner = petOwner;
+    }
 
     @Override
     public String toString() {
@@ -43,9 +52,9 @@ public class Animal {
                 '}';
     }
 
-    public Animal(String name, String petOwner, int age, boolean aquatic, Gender gender, boolean wild) {
+
+    public Animal(String name, int age, boolean aquatic, Gender gender, boolean wild) {
         this.name = name;
-        this.petOwner = petOwner;
         this.age = age;
         this.aquatic = aquatic;
         this.gender = gender;
@@ -72,13 +81,9 @@ public class Animal {
 
     }
 
-    public String getPetOwner() {
-        return petOwner;
-    }
 
-    public void setPetOwner(String petOwner) {
-        this.petOwner = petOwner;
-    }
+
+
 
     public int getAge() {
         return age;
@@ -114,3 +119,5 @@ public class Animal {
         return id;
     }
 }
+
+
